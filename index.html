@@ -1,0 +1,275 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+        <link rel="icon" sizes="192x192" href="img/cake.png">
+        <link rel="manifest" href="manifest.webmanifest" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://fonts.googleapis.com/css?family=Cherry+Swash|Pacifico" rel="stylesheet">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/custom.css">
+        <script>
+            var startEl, personEl, step1El, step2El, step3El, step4El, headerEl,
+                activePerson,
+                rules = {
+                    joel: {
+                        1: 'vanilla',
+                        2: 'chocolate-cake',
+                        3: 'white-cake',
+                        4: 'vanilla'
+                    },
+                    kate: {
+                        1: 'white-cake',
+                        2: 'chocolate-cake',
+                        3: 'white-cake',
+                        4: 'vanilla'
+                    }
+                };
+
+            function start() {
+                startEl.hide();
+                personEl.show();
+                headerEl.show();
+            }
+
+            function reset() {
+                startEl.show();
+                personEl.hide();
+                step1El.hide();
+                step2El.hide();
+                step3El.hide();
+                step4El.hide();
+                headerEl.hide();
+            }
+
+            function person() {
+                activePerson = $(this).data('id');
+                personEl.hide();
+                step1El.show();
+            }
+
+            function step1() {
+                var value = $(this).data('id');
+                var valid = validate(1, value);
+
+                if (valid) {
+                    step1El.hide();
+                    step2El.show();
+                }
+            }
+
+            function step2() {
+                var value = $(this).data('id');
+                var valid = validate(2, value);
+
+                if (valid) {
+                    step2El.hide();
+                    step3El.show();
+                }
+            }
+
+            function step3() {
+                var value = $(this).data('id');
+                var valid = validate(3, value);
+
+                if (valid) {
+                    step3El.hide();
+                    if (activePerson === 'joel') {
+                        $('#step4 [data-id=vanilla]').removeClass('homemade').addClass('vanilla');
+                        $('#step4 [data-id=vanilla] .demo-card-image__filename').html('Vanilla Ice Cream');
+                    } else {
+                        $('#step4 [data-id=vanilla]').removeClass('vanilla').addClass('homemade');
+                        $('#step4 [data-id=vanilla] .demo-card-image__filename').html('Homemade Vanilla Ice Cream');
+                    }
+                    step4El.show();
+                }
+            }
+
+            function step4() {
+                var value = $(this).data('id');
+                var valid = validate(4, value);
+
+                if (valid) {
+                    var dialog = document.querySelector('#finish');
+
+                    dialog.showModal();
+                    dialog.querySelector('button').addEventListener('click', function() {
+                        dialog.close();
+                        reset();
+                    });
+                }
+            }
+
+            function validate(step, value) {
+                var active = activePerson,
+                    rule = rules[active][step],
+                    valid = rule === value;
+
+                if (valid) {
+                    return true;
+                } else {
+                    var dialog = document.querySelector('#error');
+
+                    dialog.showModal();
+                    dialog.querySelector('button').addEventListener('click', function() {
+                        dialog.close();
+                        reset();
+                    });
+                }
+            }
+
+            $(document).ready(function () {
+                startEl = $('#start');
+                personEl = $('#person');
+                step1El = $('#step1');
+                step2El = $('#step2');
+                step3El = $('#step3');
+                step4El = $('#step4');
+                headerEl = $('#header');
+
+                startEl.on('click', '.mdl-button', start);
+                personEl.on('click', '.mdl-card', person).hide();
+                step1El.on('click', '.mdl-card', step1).hide();
+                step2El.on('click', '.mdl-card', step2).hide();
+                step3El.on('click', '.mdl-card', step3).hide();
+                step4El.on('click', '.mdl-card', step4).hide();
+                headerEl.hide();
+            });
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <dialog class="mdl-dialog" id="error">
+            <h4 class="mdl-dialog__title">Whoops!</h4>
+            <div class="mdl-dialog__content">
+                <p>Yeah, we're pretty sure you're not who you claim to be. Try again. Or don't. Whatever.</p>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button">OK</button>
+            </div>
+        </dialog>
+
+        <dialog class="mdl-dialog" id="finish">
+            <h4 class="mdl-dialog__title">Hooray!</h4>
+            <div class="mdl-dialog__content">
+                <p>
+                    Your identity (and dessert preference) has been verified toward no actual end!<br /><br />
+                    Was it pointless? Is there not any meaning that can be derived from the experience?<br /><br />
+                    Probably not. Please deposit $2 to play again.
+                </p>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button">Start Over</button>
+            </div>
+        </dialog>
+
+        <!-- Add your site or application content here -->
+        <div class="full-panel start-panel" id="start">
+            <img src="img/cake.png" />
+            <span>authenticake</span>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored button-large">
+                 Start
+            </button>
+        </div>
+
+        <div class="main-header" id="header">
+            <img src="img/cake.png" />
+            <span>authenticake</span>
+        </div>
+
+        <div class="full-panel person-panel" id="person">
+            <h1>Who are you??</h1>
+            <div class="demo-card-image mdl-card kate mdl-shadow--2dp" data-id="kate">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">Kate</span>
+                </div>
+            </div>
+        
+            <div class="demo-card-image mdl-card joel mdl-shadow--2dp" data-id="joel">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">Joel</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-panel choice-panel" id="step1">
+            <h1>Which will you choose?</h1>
+            <div class="demo-card-image mdl-card white-cake mdl-shadow--2dp" data-id="white-cake">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">White Cake</span>
+                </div>
+            </div>
+        
+            <div class="demo-card-image mdl-card vanilla mdl-shadow--2dp" data-id="vanilla">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">Vanilla Ice Cream</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-panel choice-panel" id="step2">
+            <h1>Which will you choose?</h1>
+            <div class="demo-card-image mdl-card chocolate-cake mdl-shadow--2dp" data-id="chocolate-cake">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">Chocolate Cake</span>
+                </div>
+            </div>
+        
+            <div class="demo-card-image mdl-card chocolate mdl-shadow--2dp" data-id="vanilla">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">Chocolate Ice Cream</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-panel choice-panel" id="step3">
+            <h1>Which will you choose?</h1>
+            <div class="demo-card-image mdl-card white-cake mdl-shadow--2dp" data-id="white-cake">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">White Cake</span>
+                </div>
+            </div>
+        
+            <div class="demo-card-image mdl-card chocolate mdl-shadow--2dp" data-id="chocolate">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">Chocolate Ice Cream</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-panel choice-panel" id="step4">
+            <h1>Which will you choose?</h1>
+            <div class="demo-card-image mdl-card chocolate-cake mdl-shadow--2dp" data-id="chocolate-cake">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">Chocolate Cake</span>
+                </div>
+            </div>
+        
+            <div class="demo-card-image mdl-card vanilla mdl-shadow--2dp" data-id="vanilla">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions center">
+                    <span class="demo-card-image__filename">Vanilla Ice Cream</span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

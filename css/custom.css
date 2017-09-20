@@ -1,0 +1,107 @@
+body, h1, h2, h3, h4, .start-panel .mdl-button {
+    font-family: 'Cherry Swash', cursive !important;
+    text-transform: inherit;
+}
+h1 {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+p {
+    font-family: 'Roboto';
+}
+.full-panel {
+    padding: 70px 30px 0 30px;
+}
+.start-panel {
+    padding-top: 40%;
+    text-align: center;
+}
+.button-large {
+    height: 125px;
+    width: 125px;
+    font-size: 40px;
+}
+.start-panel img {
+    display: inline-block;
+    text-align: center;
+    width: 150px;
+}
+.start-panel span {
+    display: block;
+    font-size: 4em;
+    margin: 40px 0 130px;
+    font-family: 'Pacifico', cursive;
+}
+.main-header {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background: pink;
+    font-family: 'Pacifico', cursive;
+}
+.main-header span {
+    font-size: 2em;
+    line-height: 1em;
+    position: relative;
+    top: 8px;
+}
+.main-header img {
+    width: 50px;
+    margin-right: 10px;
+}
+.mdl-dialog__title {
+    padding: 24px 24px 0;
+    margin: 0;
+}
+.mdl-dialog {
+    width: 80%;
+}
+.mdl-dialog p {
+    font-size: 1em;
+    letter-spacing: 0;
+    margin: 0 0 16px;
+    line-height: 1em;
+    margin-top: 30px;
+}
+.mdl-dialog .mdl-button {
+    font-size: 1em;
+}
+.demo-card-image.mdl-card {
+    width: 100%;
+    height: 200px;
+    margin-top: 30px;
+}
+.demo-card-image.mdl-card.joel {
+    background: url('../img/joel.jpeg') center / cover;
+}
+.demo-card-image.mdl-card.kate {
+    background: url('../img/kate.jpeg') center / cover;
+}
+.demo-card-image.mdl-card.white-cake {
+    background: url('../img/white-cake.jpg') center / cover;
+}
+.demo-card-image.mdl-card.vanilla {
+    background: url('../img/vanilla.jpg') center / cover;
+}
+.demo-card-image.mdl-card.homemade {
+    background: url('../img/homemade.jpg') center / cover;
+}
+.demo-card-image.mdl-card.chocolate-cake {
+    background: url('../img/chocolate-cake.jpg') center / cover;
+}
+.demo-card-image.mdl-card.chocolate {
+    background: url('../img/chocolate.jpg') center / cover;
+}
+.demo-card-image > .mdl-card__actions {
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.4);
+      text-align: center;
+}
+.demo-card-image__filename {
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 500;
+}

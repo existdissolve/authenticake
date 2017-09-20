@@ -1,0 +1,15 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "authenticake",
+  "description": "The future of cake-based authentication!",
+  "short_name": "authenticake",
+  "icons": [{
+    "src": "//existdissolve.com/authenticake/img/cake.png",
+    "sizes": "358x275"
+  }],
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "theme_color": "indigo-pink",
+  "background_color": "indigo-pink"
+}
